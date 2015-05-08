@@ -39,6 +39,7 @@ public class RegisterActivity extends Activity {
                     et_user_name.setText("");
                     et_user_pass.setText("");
                     et_conf_pass.setText("");
+                    et_user_name.requestFocus();
 
                 } else {
                     DatabaseOpr dbo = new DatabaseOpr(ctx);
