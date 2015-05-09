@@ -2,6 +2,7 @@ package com.mycompany.singhinderdeep.loginapp;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -29,12 +30,24 @@ public class DatabaseOpr  extends SQLiteOpenHelper {
 
     }
 
-    public void putUserInfo(String name,String pass)  {
+    public void putUserInfo(UserInfo usrinf)  {
         SQLiteDatabase sq=this.getWritableDatabase();
         ContentValues cv=new ContentValues();
-        cv.put(TableData.TableInfo.USER_NAME,name);
-        cv.put(TableData.TableInfo.USER_PASS, pass);
+        cv.put(TableData.TableInfo.USER_NAME,usrinf.userName);
+        cv.put(TableData.TableInfo.USER_PASS,usrinf.userPass);
         long val=sq.insert(TableData.TableInfo.TABLE_NAME,null,cv);
         Log.d("DBOpr","1 row inserted");
+        sq.close();
+        Log.d("DBOpr", "Connection closed");
     }
+
+    public Cursor getUserInfo()  {
+        SQLiteDatabase sq=this.getReadableDatabase();
+        String [] columns={TableData.TableInfo.USER_NAME, TableData.TableInfo.USER_PASS};
+        Cursor cr=sq.query(TableData.TableInfo.TABLE_NAME,columns,null,null,null,null,null);
+        Log.d("DBOpr","row selected");
+        return cr;
+    }
+
 }
+

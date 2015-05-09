@@ -2,7 +2,6 @@ package com.mycompany.singhinderdeep.loginapp;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -26,14 +25,21 @@ public class RegisterActivity extends Activity {
         Button btn_Reg= (Button) findViewById(R.id.button6);
         final Context ctx=this;
 
+
         btn_Reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String user_name = et_user_name.getText().toString();
-                String user_pass = et_user_pass.getText().toString();
+     //            UserInfo userInfo = new UserInfo(et_user_name.getText().toString(),et_user_pass.getText().toString());
+                UserInfo userInfo=new UserInfo();
+    //            userInfo.setUserPass(et_user_pass.getText().toString());
+    //            userInfo.setUserName(et_user_name.getText().toString());
+                String user_name=et_user_name.getText().toString();
+                String user_pass=et_user_pass.getText().toString();
                 String conf_pass = et_conf_pass.getText().toString();
-
-                if (!user_pass.equals(conf_pass)) {
+                userInfo.userName=user_name;
+                userInfo.userPass=user_pass;
+               // if (!user_pass.equals(conf_pass)) {
+                if(!userInfo.userPass.equals(conf_pass)){
                     Log.d("RegisterActivity", "passwords do not match");
                     Toast.makeText(getBaseContext(), "passwords do not match", Toast.LENGTH_LONG).show();
                     et_user_name.setText("");
@@ -43,7 +49,8 @@ public class RegisterActivity extends Activity {
 
                 } else {
                     DatabaseOpr dbo = new DatabaseOpr(ctx);
-                    dbo.putUserInfo( user_name, user_pass);
+                   // dbo.putUserInfo(user_name,user_pass);
+                    dbo.putUserInfo(userInfo);
                     Toast.makeText(getBaseContext(), "Registration Success", Toast.LENGTH_LONG).show();
                     finish();
                 }
