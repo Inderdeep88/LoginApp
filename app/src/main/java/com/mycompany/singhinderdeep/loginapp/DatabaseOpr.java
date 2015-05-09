@@ -29,8 +29,8 @@ public class DatabaseOpr  extends SQLiteOpenHelper {
 
     }
 
-    public void putUserInfo(DatabaseOpr dbo,String name,String pass)  {
-        SQLiteDatabase sq=dbo.getWritableDatabase();
+    public void putUserInfo(String name,String pass)  {
+        SQLiteDatabase sq=this.getWritableDatabase();
         ContentValues cv=new ContentValues();
         cv.put(TableData.TableInfo.USER_NAME,name);
         cv.put(TableData.TableInfo.USER_PASS, pass);

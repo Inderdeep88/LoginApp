@@ -43,7 +43,7 @@ public class RegisterActivity extends Activity {
 
                 } else {
                     DatabaseOpr dbo = new DatabaseOpr(ctx);
-                    dbo.putUserInfo(dbo, user_name, user_pass);
+                    dbo.putUserInfo( user_name, user_pass);
                     Toast.makeText(getBaseContext(), "Registration Success", Toast.LENGTH_LONG).show();
                     finish();
                 }
