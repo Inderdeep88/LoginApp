@@ -53,7 +53,7 @@ public class UpdateActivity extends Activity {
                             DatabaseOpr dop = new DatabaseOpr(ctx);
                             userInfo.setUserName(name);
                             userInfo.setUserPass(strNewpwd);
-                            status=dop.updateContact(userInfo);
+                            status=dop.updateUserInfo(userInfo);
                             if(status==1)
                             {
                                 Toast.makeText(getBaseContext(), "Password changed successfully", Toast.LENGTH_LONG).show();

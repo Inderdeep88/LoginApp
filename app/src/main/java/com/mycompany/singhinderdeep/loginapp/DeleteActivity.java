@@ -1,6 +1,7 @@
 package com.mycompany.singhinderdeep.loginapp;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,11 +18,14 @@ public class DeleteActivity extends Activity {
     TextView tv;
     Button butDel;
     String message="Hi User !";
+    Context ctx=this;
+    UserInfo userInfo;
+    int status;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete);
-        String name = getIntent().getExtras().getString("user_name");
+        final String name = getIntent().getExtras().getString("user_name");
         final String pass=getIntent().getExtras().getString("user_pass");
 
         tv=(TextView)findViewById(R.id.textView);
@@ -39,6 +43,20 @@ public class DeleteActivity extends Activity {
                 }
                 else if (strPwd.equals(pass)){
                      //call delete db helper
+                    DatabaseOpr dop = new DatabaseOpr(ctx);
+                    userInfo=new UserInfo();
+                    userInfo.setUserName(name);
+                    status=dop.deleteUserInfo(userInfo);
+                    if(status==1)
+                    {
+                        Toast.makeText(getBaseContext(), "User Info deleted successfully", Toast.LENGTH_LONG).show();
+                        finish();
+                        return;
+                    }
+                    else
+                    {
+                        Toast.makeText(getBaseContext(), "Failed to update Password", Toast.LENGTH_LONG).show();
+                    }
                 }
                 else{
                      Toast.makeText(getBaseContext(), "Password is Incorrect \nTry Again...", Toast.LENGTH_LONG).show();

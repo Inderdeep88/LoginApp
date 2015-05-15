@@ -53,7 +53,7 @@ public class DatabaseOpr  extends SQLiteOpenHelper {
         Log.d("DBOpr", "Connection closed");
     }
 */
-    public int updateContact(UserInfo usrinf) {
+    public int updateUserInfo(UserInfo usrinf) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -63,6 +63,18 @@ public class DatabaseOpr  extends SQLiteOpenHelper {
         return db.update(TableData.TableInfo.TABLE_NAME, values, TableData.TableInfo.USER_NAME+ " = ?",
                 new String[] { usrinf.userName});
     }
+
+    public int deleteUserInfo(UserInfo usrinf) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(TableData.TableInfo.USER_NAME, usrinf.userName);
+
+        // updating row
+        return db.delete(TableData.TableInfo.TABLE_NAME, TableData.TableInfo.USER_NAME+ " = ?",
+                new String[] { usrinf.userName});
+    }
+
     public Cursor getUserInfo()  {
         SQLiteDatabase sq=this.getReadableDatabase();
         String [] columns={TableData.TableInfo.USER_NAME, TableData.TableInfo.USER_PASS};

@@ -203,8 +203,8 @@ public class LoginActivity extends Activity {
                             Toast.makeText(getBaseContext(), "Login Successful \n Welcome " + name, Toast.LENGTH_LONG).show();
                             Intent i = new Intent(ctx,DeleteActivity.class);
                             Bundle b=new Bundle();
-                            b.putString("user_name",name);
-                            b.putString("user_pass",pass);
+                            b.putString("user_name",userInfo.userName);
+                            b.putString("user_pass",userInfo.userPass);
                             i.putExtras(b);
                             startActivity(i);
                             finish();
