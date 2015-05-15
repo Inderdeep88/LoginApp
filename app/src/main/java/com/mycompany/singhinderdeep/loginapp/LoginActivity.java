@@ -2,6 +2,7 @@ package com.mycompany.singhinderdeep.loginapp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,74 +16,204 @@ import android.widget.Toast;
 
 public class LoginActivity extends Activity {
 
+    Context ctx=this;
+    boolean login_status = false;
+    String name = "";
+    String pass="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        final int origin = getIntent().getExtras().getInt("origin");
 
-        final Context ctx=this;
-
-        final EditText et_login_user_name=(EditText)findViewById(R.id.editText);
-        final EditText et_login_user_pass=(EditText)findViewById(R.id.editText2);
+        Log.d("aaa", String.valueOf(origin));
         final Button bt_login=(Button)findViewById(R.id.button5);
-        final UserInfo userInfo = new UserInfo();
-        //userInfo.setUserName(et_login_user_name.getText().toString());
-        //userInfo.setUserPass(et_login_user_pass.getText().toString());
-
-        bt_login.setOnClickListener(new View.OnClickListener() {
+        bt_login.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
-               // final String un=et_login_user_name.getText().toString();
-               // final String up=et_login_user_pass.getText().toString();
-                userInfo.userName=et_login_user_name.getText().toString();
-                userInfo.userPass=et_login_user_pass.getText().toString();
-              //  if (un.isEmpty()|| up.isEmpty())
-                if(userInfo.userPass.isEmpty()||userInfo.userName.isEmpty())
+            public void onClick(View v)
+            {
+                if(origin==1)
                 {
-                    Log.d("inside","empty");
-                    Toast.makeText(getBaseContext(), "Login name or password empty Try Again...", Toast.LENGTH_LONG).show();
+                    UserInfo userInfo = new UserInfo();
+                    EditText et_login_user_name = (EditText) findViewById(R.id.editText);
+                    EditText et_login_user_pass = (EditText) findViewById(R.id.editText2);
+                    userInfo.setUserName(et_login_user_name.getText().toString());
+                    userInfo.setUserPass(et_login_user_pass.getText().toString());
 
-                }else {
-
-
-                    DatabaseOpr dop = new DatabaseOpr(ctx);
-                    Cursor cr = dop.getUserInfo();
-                    Log.d("Login Activity", "After getUserInfo()");
-                    int count = cr.getCount();
-                    if (count == 0) {
-                        Toast.makeText(getBaseContext(), "DB is empty \nCreate new registration...", Toast.LENGTH_LONG).show();
-                        finish();
-                        return;
+                    if (userInfo.userPass.isEmpty() || userInfo.userName.isEmpty())
+                    {
+                        Log.d("inside", "empty");
+                        Toast.makeText(getBaseContext(), "Login name \n or \npassword empty Try Again...", Toast.LENGTH_LONG).show();
                     }
-                    cr.moveToFirst();
-                    Log.d("Login Activity", cr.getString(0));
-                    Log.d("Login Activity", cr.getString(1));
-                    Log.d("Login Activity", "Check Check");
-
-                    //Log.d("Login Activity", un);
-                    //Log.d("Login Activity", up);
-                    boolean login_status = false;
-                    String name = "";
-                    do {
-                        Log.d("Login Activity", "inside loop");
+                    else
+                    {
+                        DatabaseOpr dop = new DatabaseOpr(ctx);
+                        Cursor cr = dop.getUserInfo();
+                        Log.d("Login Activity", "After getUserInfo()");
+                        int count = cr.getCount();
+                        if (count == 0)
+                        {
+                            Toast.makeText(getBaseContext(), "DB is empty \nCreate new registration...", Toast.LENGTH_LONG).show();
+                            finish();
+                            return;
+                        }
+                        cr.moveToFirst();
                         Log.d("Login Activity", cr.getString(0));
                         Log.d("Login Activity", cr.getString(1));
+                        Log.d("Login Activity", "Check Check");
 
-                      //  if (un.equals(cr.getString(0)) && up.equals(cr.getString(1))) {
-                        if (userInfo.userName.equals(cr.getString(0)) && userInfo.userPass.equals(cr.getString(1))) {
-                            Log.d("Login Activity", "inside if1");
-                            login_status = true;
-                            name = cr.getString(0);
-                            break;
+                        do
+                        {
+                            Log.d("Login Activity", "inside loop");
+                            Log.d("Login Activity", cr.getString(0));
+                            Log.d("Login Activity", cr.getString(1));
+
+                            if (userInfo.userName.equals(cr.getString(0)) && userInfo.userPass.equals(cr.getString(1)))
+                            {
+                                Log.d("Login Activity", "inside if1");
+                                login_status = true;
+                                name = cr.getString(0);
+                                break;
+                            }
+                        } while (cr.moveToNext());
+                        if (login_status == true)
+                        {
+                            Log.d("Login Activity", "inside if2");
+                            Toast.makeText(getBaseContext(), "Login Successful \n Welcome " + name, Toast.LENGTH_LONG).show();
+                            finish();
                         }
-                    } while (cr.moveToNext());
-                    if (login_status == true) {
-                        Log.d("Login Activity", "inside if2");
-                        Toast.makeText(getBaseContext(), "Login Successful \n Welcome " + name, Toast.LENGTH_LONG).show();
-                        finish();
-                    } else {
-                        Log.d("Login Activity", "inside else");
-                        Toast.makeText(getBaseContext(), "Login Failed", Toast.LENGTH_LONG).show();
+                        else
+                        {
+                            Log.d("Login Activity", "inside else");
+                            Toast.makeText(getBaseContext(), "Login Failed", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }
+                else if(origin==2)
+                {
+                    UserInfo userInfo = new UserInfo();
+                    EditText et_login_user_name = (EditText) findViewById(R.id.editText);
+                    EditText et_login_user_pass = (EditText) findViewById(R.id.editText2);
+                    userInfo.setUserName(et_login_user_name.getText().toString());
+                    userInfo.setUserPass(et_login_user_pass.getText().toString());
+
+                    if (userInfo.userPass.isEmpty() || userInfo.userName.isEmpty())
+                    {
+                        Log.d("inside", "empty");
+                        Toast.makeText(getBaseContext(), "Login name or password empty Try Again...", Toast.LENGTH_LONG).show();
+                    }
+                    else
+                    {
+                        DatabaseOpr dop = new DatabaseOpr(ctx);
+                        Cursor cr = dop.getUserInfo();
+                        Log.d("Login Activity", "After getUserInfo()");
+                        int count = cr.getCount();
+                        if (count == 0)
+                        {
+                            Toast.makeText(getBaseContext(), "DB is empty \nCreate new registration...", Toast.LENGTH_LONG).show();
+                            finish();
+                            return;
+                        }
+                        cr.moveToFirst();
+                        Log.d("Login Activity", cr.getString(0));
+                        Log.d("Login Activity", cr.getString(1));
+                        Log.d("Login Activity", "Check Check");
+
+                        do
+                        {
+                            Log.d("Login Activity", "inside loop");
+                            Log.d("Login Activity", cr.getString(0));
+                            Log.d("Login Activity", cr.getString(1));
+
+                            if (userInfo.userName.equals(cr.getString(0)) && userInfo.userPass.equals(cr.getString(1)))
+                            {
+                                Log.d("Login Activity", "inside if1");
+                                login_status = true;
+                                name = cr.getString(0);
+                                break;
+                            }
+                        } while (cr.moveToNext());
+                        if (login_status == true)
+                        {
+                            Log.d("Login Activity", "inside if2");
+                            Toast.makeText(getBaseContext(), "Login Successful \n Welcome " + name, Toast.LENGTH_LONG).show();
+                            Intent in = new Intent(ctx,UpdateActivity.class);
+                            Bundle b=new Bundle();
+                            b.putString("user_name", userInfo.userName);
+                            b.putString("user_pass", userInfo.userPass);
+                            in.putExtras(b);
+                            startActivity(in);
+                            finish();
+                        }
+                        else
+                        {
+                            Log.d("Login Activity", "inside else");
+                            Toast.makeText(getBaseContext(), "Login Failed", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }
+                else if(origin==3)
+                {
+                    UserInfo userInfo = new UserInfo();
+                    EditText et_login_user_name = (EditText) findViewById(R.id.editText);
+                    EditText et_login_user_pass = (EditText) findViewById(R.id.editText2);
+                    userInfo.setUserName(et_login_user_name.getText().toString());
+                    userInfo.setUserPass(et_login_user_pass.getText().toString());
+
+                    if (userInfo.userPass.isEmpty() || userInfo.userName.isEmpty())
+                    {
+                        Log.d("inside", "empty");
+                        Toast.makeText(getBaseContext(), "Login name or password empty Try Again...", Toast.LENGTH_LONG).show();
+                    }
+                    else
+                    {
+                        DatabaseOpr dop = new DatabaseOpr(ctx);
+                        Cursor cr = dop.getUserInfo();
+                        Log.d("Login Activity", "After getUserInfo()");
+                        int count = cr.getCount();
+                        if (count == 0)
+                        {
+                            Toast.makeText(getBaseContext(), "DB is empty \nCreate new registration...", Toast.LENGTH_LONG).show();
+                            finish();
+                            return;
+                        }
+                        cr.moveToFirst();
+                        Log.d("Login Activity", cr.getString(0));
+                        Log.d("Login Activity", cr.getString(1));
+                        Log.d("Login Activity", "Check Check");
+
+                        do
+                        {
+                            Log.d("Login Activity", "inside loop");
+                            Log.d("Login Activity", cr.getString(0));
+                            Log.d("Login Activity", cr.getString(1));
+
+                            if (userInfo.userName.equals(cr.getString(0)) && userInfo.userPass.equals(cr.getString(1)))
+                            {
+                                Log.d("Login Activity", "inside if1");
+                                login_status = true;
+                                name = cr.getString(0);
+                                break;
+                            }
+                        } while (cr.moveToNext());
+                        if (login_status == true)
+                        {
+                            Log.d("Login Activity", "inside if2");
+                            Toast.makeText(getBaseContext(), "Login Successful \n Welcome " + name, Toast.LENGTH_LONG).show();
+                            Intent i = new Intent(ctx,DeleteActivity.class);
+                            Bundle b=new Bundle();
+                            b.putString("user_name",name);
+                            b.putString("user_pass",pass);
+                            i.putExtras(b);
+                            startActivity(i);
+                            finish();
+                        }
+                        else
+                        {
+                            Log.d("Login Activity", "inside else");
+                            Toast.makeText(getBaseContext(), "Login Failed", Toast.LENGTH_LONG).show();
+                        }
                     }
                 }
             }

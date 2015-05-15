@@ -1,6 +1,7 @@
 package com.mycompany.singhinderdeep.loginapp;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,11 +13,66 @@ import android.widget.Button;
 public class MainActivity extends Activity {
 
     Button buttonLogin, buttonRegister, buttonUpdate, buttonDelete;
-
+    int origin;
+    Context ctx = this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Button login=(Button)findViewById(R.id.button);
+        Button register=(Button)findViewById(R.id.button2);
+        Button update=(Button)findViewById(R.id.button3);
+        Button delete=(Button)findViewById(R.id.button4);
+
+
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                origin=1;    // origin 1 means it is called from login button
+                Bundle b=new Bundle();
+                b.putInt("origin",origin);
+                Intent intent=new Intent(ctx,LoginActivity.class);
+                intent.putExtras(b);
+                startActivity(intent);
+            }
+        });
+//
+//        register.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                origin=2;    // origin 2 means it is called from register button
+//                Bundle b=new Bundle();
+//                b.putInt("origin",origin);
+//                Intent intent=new Intent(ctx,RegisterActivity.class);
+//                intent.putExtras(b);
+//                startActivity(intent);
+//            }
+//        });
+
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                origin = 2;    // origin 2 means it is called from Update button
+                Bundle b = new Bundle();
+                b.putInt("origin", origin);
+                Intent intent = new Intent(ctx, LoginActivity.class);
+                intent.putExtras(b);
+                startActivity(intent);
+            }
+        });
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                origin=3;    // origin 3 means it is called from delete button
+                Bundle b=new Bundle();
+                b.putInt("origin",origin);
+                Intent intent=new Intent(ctx,LoginActivity.class);
+                intent.putExtras(b);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -43,11 +99,6 @@ public class MainActivity extends Activity {
     public void register(View v)
     {
         Intent intent=new Intent(this,RegisterActivity.class);
-        startActivity(intent);
-    }
-    public void login(View v)
-    {
-        Intent intent=new Intent(this,LoginActivity.class);
         startActivity(intent);
     }
 }

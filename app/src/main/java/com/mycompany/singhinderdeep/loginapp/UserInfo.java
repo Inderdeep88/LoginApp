@@ -12,14 +12,14 @@ public class UserInfo {
 
     }
     public UserInfo(String userName, String userPass){
-        userName=this.userName;
-        userPass=this.userPass;
+        this.userName=userName;
+        this.userPass=userPass;
     }
     public void setUserName(String userName){
-        userName=this.userName;
+        this.userName=userName;
     }
     public void setUserPass(String userPass){
-        userPass=this.userPass;
+        this.userPass=userPass;
     }
 
 
