@@ -29,7 +29,7 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         origin = getIntent().getExtras().getInt(UserInfo.BUNDLE_ORIGIN_KEY);
-        bt_login=(Button)findViewById(R.id.button5);
+        bt_login=(Button)findViewById(R.id.laButtonLogin);
 
         bt_login.setOnClickListener(new View.OnClickListener()
         {
@@ -39,8 +39,8 @@ public class LoginActivity extends Activity {
                 if(origin==UserInfo.BUNDLE_ORIGIN_LOGIN)
                 {
                     UserInfo userInfo = new UserInfo();
-                    et_login_user_name = (EditText) findViewById(R.id.editText);
-                    et_login_user_pass = (EditText) findViewById(R.id.editText2);
+                    et_login_user_name = (EditText) findViewById(R.id.laETName);
+                    et_login_user_pass = (EditText) findViewById(R.id.laETPassword);
                     userInfo.setUserName(et_login_user_name.getText().toString());
                     userInfo.setUserPass(et_login_user_pass.getText().toString());
 
@@ -96,8 +96,8 @@ public class LoginActivity extends Activity {
                 else if(origin==UserInfo.BUNDLE_ORIGIN_UPDATE)
                 {
                     UserInfo userInfo = new UserInfo();
-                    et_login_user_name = (EditText) findViewById(R.id.editText);
-                    et_login_user_pass = (EditText) findViewById(R.id.editText2);
+                    et_login_user_name = (EditText) findViewById(R.id.laETName);
+                    et_login_user_pass = (EditText) findViewById(R.id.laETPassword);
                     userInfo.setUserName(et_login_user_name.getText().toString());
                     userInfo.setUserPass(et_login_user_pass.getText().toString());
 
@@ -168,8 +168,8 @@ public class LoginActivity extends Activity {
                 else if(origin==UserInfo.BUNDLE_ORIGIN_DELETE)
                 {
                     UserInfo userInfo = new UserInfo();
-                    EditText et_login_user_name = (EditText) findViewById(R.id.editText);
-                    EditText et_login_user_pass = (EditText) findViewById(R.id.editText2);
+                    EditText et_login_user_name = (EditText) findViewById(R.id.laETName);
+                    EditText et_login_user_pass = (EditText) findViewById(R.id.laETPassword);
                     userInfo.setUserName(et_login_user_name.getText().toString());
                     userInfo.setUserPass(et_login_user_pass.getText().toString());
 

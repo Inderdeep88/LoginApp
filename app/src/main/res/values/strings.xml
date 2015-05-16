@@ -7,4 +7,15 @@
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_update">UpdateActivity</string>
     <string name="title_activity_delete">DeleteActivity</string>
+    <string name="button_text_login">Login</string>
+    <string name="button_text_register">Register</string>
+    <string name="button_text_update">Update</string>
+    <string name="button_text_delete">Delete</string>
+    <string name="textview_text_welcome">Welcome to Login App !</string>
+    <string name="hint_old_password">Old Password</string>
+    <string name="hint_new_password">New Password</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_conf_password">Confirm Password</string>
+
 </resources>

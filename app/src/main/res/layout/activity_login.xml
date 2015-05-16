@@ -11,27 +11,27 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/laETName"
         android:singleLine="true"
-        android:hint="Name"
+        android:hint="@string/hint_name"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/editText2" />
+        android:layout_alignStart="@+id/laETPassword" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/editText2"
-        android:layout_below="@+id/editText"
+        android:id="@+id/laETPassword"
+        android:layout_below="@+id/laETName"
         android:layout_centerHorizontal="true"
-        android:hint="Password" />
+        android:hint="@string/hint_password" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login"
-        android:id="@+id/button5"
+        android:text="@string/button_text_login"
+        android:id="@+id/laButtonLogin"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

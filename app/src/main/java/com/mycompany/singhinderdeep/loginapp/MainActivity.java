@@ -20,9 +20,9 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        buttonLogin=(Button)findViewById(R.id.button);
-        buttonUpdate=(Button)findViewById(R.id.button3);
-        buttonDelete=(Button)findViewById(R.id.button4);
+        buttonLogin=(Button)findViewById(R.id.maButtonLogin);
+        buttonUpdate=(Button)findViewById(R.id.maButtonUpdate);
+        buttonDelete=(Button)findViewById(R.id.maButtonDelete);
 
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {

@@ -11,37 +11,37 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/editText3"
+        android:id="@+id/raETName"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:hint="Name" />
+        android:hint="@string/hint_name" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/editText4"
-        android:layout_below="@+id/editText3"
+        android:id="@+id/raETPassword"
+        android:layout_below="@+id/raETName"
         android:layout_centerHorizontal="true"
         android:layout_alignParentEnd="false"
-        android:hint="Password" />
+        android:hint="@string/hint_password" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/editText5"
-        android:layout_below="@+id/editText4"
+        android:id="@+id/raETConfPassword"
+        android:layout_below="@+id/raETPassword"
         android:layout_centerHorizontal="true"
-        android:hint="Confirm Password" />
+        android:hint="@string/hint_conf_password" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save"
-        android:id="@+id/button6"
+        android:text="@string/button_text_register"
+        android:id="@+id/raButtonRegister"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

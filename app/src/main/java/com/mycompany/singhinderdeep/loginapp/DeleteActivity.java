@@ -30,8 +30,8 @@ public class DeleteActivity extends Activity {
         pass = getIntent().getExtras().getString(UserInfo.BUNDLE_PASS_KEY);
 
         tv=(TextView)findViewById(R.id.textView);
-        et_pass=(EditText)findViewById(R.id.editText9);
-        butDel=(Button)findViewById(R.id.button8);
+        et_pass=(EditText)findViewById(R.id.daETPassword);
+        butDel=(Button)findViewById(R.id.daButtonDelete);
 
         butDel.setOnClickListener(new View.OnClickListener() {
             @Override

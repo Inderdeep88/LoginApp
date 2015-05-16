@@ -8,13 +8,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
 public class UpdateActivity extends Activity {
 
-    TextView  tv;
     EditText oldpwd,newpwd;
     Button butUpd;
     long status=0;
@@ -26,10 +24,9 @@ public class UpdateActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update);
 
-        tv=(TextView)findViewById(R.id.textView2);
-        oldpwd=(EditText)findViewById(R.id.editText7);
-        newpwd=(EditText)findViewById(R.id.editText8);
-        butUpd=(Button)findViewById(R.id.button7);
+        oldpwd=(EditText)findViewById(R.id.uaETOldPassword);
+        newpwd=(EditText)findViewById(R.id.uaETNewPassword);
+        butUpd=(Button)findViewById(R.id.uaButtonUpdate);
 
         name=getIntent().getExtras().getString(UserInfo.BUNDLE_NAME_KEY);
         pass=getIntent().getExtras().getString(UserInfo.BUNDLE_PASS_KEY);
@@ -58,7 +55,7 @@ public class UpdateActivity extends Activity {
                             userInfo.setUserName(name);
                             userInfo.setUserPass(strNewpwd);
                             status=dop.updateUserInfo(userInfo);
-                            if(status==1) {
+                            if(status!=0) {
                                 Toast.makeText(getBaseContext(), "Password changed successfully", Toast.LENGTH_LONG).show();
                                 finish();
                                 return;

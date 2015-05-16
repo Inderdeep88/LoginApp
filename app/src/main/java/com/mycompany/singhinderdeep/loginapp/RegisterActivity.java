@@ -25,10 +25,10 @@ public class RegisterActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        et_user_name= (EditText) findViewById(R.id.editText3);
-        et_user_pass= (EditText) findViewById(R.id.editText4);
-        et_conf_pass= (EditText) findViewById(R.id.editText5);
-        btn_Reg= (Button) findViewById(R.id.button6);
+        et_user_name= (EditText) findViewById(R.id.raETName);
+        et_user_pass= (EditText) findViewById(R.id.raETPassword);
+        et_conf_pass= (EditText) findViewById(R.id.raETConfPassword);
+        btn_Reg= (Button) findViewById(R.id.raButtonRegister);
 
         btn_Reg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,7 +50,7 @@ public class RegisterActivity extends Activity {
                 } else {
                     DatabaseOpr dbo = new DatabaseOpr(ctx);
                     status=dbo.putUserInfo(userInfo);
-                    if (status!=1){
+                    if (status==-1){
                         Toast.makeText(getBaseContext(), "Registration Failed \n" +
                                 "Try Again", Toast.LENGTH_LONG).show();
                     }
