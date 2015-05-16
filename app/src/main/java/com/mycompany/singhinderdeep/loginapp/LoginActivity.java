@@ -18,33 +18,36 @@ public class LoginActivity extends Activity {
 
     Context ctx=this;
     boolean login_status = false;
-    String name = "";
+    String name="";
     String pass="";
+    Button bt_login;
+    int origin;
+
+    EditText et_login_user_name, et_login_user_pass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        final int origin = getIntent().getExtras().getInt("origin");
+        origin = getIntent().getExtras().getInt(UserInfo.BUNDLE_ORIGIN_KEY);
+        bt_login=(Button)findViewById(R.id.button5);
 
-        Log.d("aaa", String.valueOf(origin));
-        final Button bt_login=(Button)findViewById(R.id.button5);
         bt_login.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                if(origin==1)
+                if(origin==UserInfo.BUNDLE_ORIGIN_LOGIN)
                 {
                     UserInfo userInfo = new UserInfo();
-                    EditText et_login_user_name = (EditText) findViewById(R.id.editText);
-                    EditText et_login_user_pass = (EditText) findViewById(R.id.editText2);
+                    et_login_user_name = (EditText) findViewById(R.id.editText);
+                    et_login_user_pass = (EditText) findViewById(R.id.editText2);
                     userInfo.setUserName(et_login_user_name.getText().toString());
                     userInfo.setUserPass(et_login_user_pass.getText().toString());
 
-                    if (userInfo.userPass.isEmpty() || userInfo.userName.isEmpty())
+                    if (userInfo.getUserPass().isEmpty() || userInfo.getUserName().isEmpty())
                     {
                         Log.d("inside", "empty");
-                        Toast.makeText(getBaseContext(), "Login name \n or \npassword empty Try Again...", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getBaseContext(), "Login name or password empty \nTry Again...", Toast.LENGTH_LONG).show();
                     }
                     else
                     {
@@ -77,7 +80,7 @@ public class LoginActivity extends Activity {
                                 break;
                             }
                         } while (cr.moveToNext());
-                        if (login_status == true)
+                        if (login_status)
                         {
                             Log.d("Login Activity", "inside if2");
                             Toast.makeText(getBaseContext(), "Login Successful \n Welcome " + name, Toast.LENGTH_LONG).show();
@@ -90,23 +93,34 @@ public class LoginActivity extends Activity {
                         }
                     }
                 }
-                else if(origin==2)
+                else if(origin==UserInfo.BUNDLE_ORIGIN_UPDATE)
                 {
                     UserInfo userInfo = new UserInfo();
-                    EditText et_login_user_name = (EditText) findViewById(R.id.editText);
-                    EditText et_login_user_pass = (EditText) findViewById(R.id.editText2);
+                    et_login_user_name = (EditText) findViewById(R.id.editText);
+                    et_login_user_pass = (EditText) findViewById(R.id.editText2);
                     userInfo.setUserName(et_login_user_name.getText().toString());
                     userInfo.setUserPass(et_login_user_pass.getText().toString());
 
-                    if (userInfo.userPass.isEmpty() || userInfo.userName.isEmpty())
+                    if (userInfo.userPass.isEmpty() && userInfo.userName.isEmpty())
                     {
                         Log.d("inside", "empty");
                         Toast.makeText(getBaseContext(), "Login name or password empty Try Again...", Toast.LENGTH_LONG).show();
+                    }
+                    else if (userInfo.userName.isEmpty()){
+                        Toast.makeText(getBaseContext(), "Login name is empty Try Again...", Toast.LENGTH_LONG).show();
+                    }
+                    else if (userInfo.userPass.isEmpty()){
+                        Toast.makeText(getBaseContext(), "Password is empty Try Again...", Toast.LENGTH_LONG).show();
                     }
                     else
                     {
                         DatabaseOpr dop = new DatabaseOpr(ctx);
                         Cursor cr = dop.getUserInfo();
+                        if(cr==null){
+                            Toast.makeText(getBaseContext(), "Not able to fetch user from DB...", Toast.LENGTH_LONG).show();
+                            finish();
+                            return;
+                        }
                         Log.d("Login Activity", "After getUserInfo()");
                         int count = cr.getCount();
                         if (count == 0)
@@ -118,8 +132,6 @@ public class LoginActivity extends Activity {
                         cr.moveToFirst();
                         Log.d("Login Activity", cr.getString(0));
                         Log.d("Login Activity", cr.getString(1));
-                        Log.d("Login Activity", "Check Check");
-
                         do
                         {
                             Log.d("Login Activity", "inside loop");
@@ -134,7 +146,7 @@ public class LoginActivity extends Activity {
                                 break;
                             }
                         } while (cr.moveToNext());
-                        if (login_status == true)
+                        if (login_status)
                         {
                             Log.d("Login Activity", "inside if2");
                             Toast.makeText(getBaseContext(), "Login Successful \n Welcome " + name, Toast.LENGTH_LONG).show();
@@ -153,7 +165,7 @@ public class LoginActivity extends Activity {
                         }
                     }
                 }
-                else if(origin==3)
+                else if(origin==UserInfo.BUNDLE_ORIGIN_DELETE)
                 {
                     UserInfo userInfo = new UserInfo();
                     EditText et_login_user_name = (EditText) findViewById(R.id.editText);
@@ -197,7 +209,7 @@ public class LoginActivity extends Activity {
                                 break;
                             }
                         } while (cr.moveToNext());
-                        if (login_status == true)
+                        if (login_status)
                         {
                             Log.d("Login Activity", "inside if2");
                             Toast.makeText(getBaseContext(), "Login Successful \n Welcome " + name, Toast.LENGTH_LONG).show();

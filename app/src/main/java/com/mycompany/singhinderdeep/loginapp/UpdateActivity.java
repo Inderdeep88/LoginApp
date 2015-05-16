@@ -17,19 +17,22 @@ public class UpdateActivity extends Activity {
     TextView  tv;
     EditText oldpwd,newpwd;
     Button butUpd;
-    int status=0;
-    UserInfo userInfo=new UserInfo();
+    long status=0;
+    String name,pass;
+    UserInfo userInfo;
     Context ctx=this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update);
+
         tv=(TextView)findViewById(R.id.textView2);
         oldpwd=(EditText)findViewById(R.id.editText7);
         newpwd=(EditText)findViewById(R.id.editText8);
         butUpd=(Button)findViewById(R.id.button7);
-        final String name=getIntent().getExtras().getString("user_name");
-        final String pass=getIntent().getExtras().getString("user_pass");
+
+        name=getIntent().getExtras().getString(UserInfo.BUNDLE_NAME_KEY);
+        pass=getIntent().getExtras().getString(UserInfo.BUNDLE_PASS_KEY);
 
         butUpd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,21 +50,20 @@ public class UpdateActivity extends Activity {
                         Toast.makeText(getBaseContext(), "New password is empty \nTry Again...", Toast.LENGTH_LONG).show();
                         flag=false;
                     }
-                    if(flag==true){
+                    if(flag){
                         if(pass.equals(strOldpwd)){
                             //call update db helper
                             DatabaseOpr dop = new DatabaseOpr(ctx);
+                            userInfo=new UserInfo();
                             userInfo.setUserName(name);
                             userInfo.setUserPass(strNewpwd);
                             status=dop.updateUserInfo(userInfo);
-                            if(status==1)
-                            {
+                            if(status==1) {
                                 Toast.makeText(getBaseContext(), "Password changed successfully", Toast.LENGTH_LONG).show();
                                 finish();
                                 return;
                             }
-                            else
-                            {
+                            else {
                                 Toast.makeText(getBaseContext(), "Failed to update Password", Toast.LENGTH_LONG).show();
                             }
                         }

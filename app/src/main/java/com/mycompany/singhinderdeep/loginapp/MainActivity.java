@@ -12,61 +12,46 @@ import android.widget.Button;
 
 public class MainActivity extends Activity {
 
-    Button buttonLogin, buttonRegister, buttonUpdate, buttonDelete;
-    int origin;
+    Button buttonLogin, buttonUpdate, buttonDelete;
+    UserInfo userInfo;
     Context ctx = this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button login=(Button)findViewById(R.id.button);
-        Button register=(Button)findViewById(R.id.button2);
-        Button update=(Button)findViewById(R.id.button3);
-        Button delete=(Button)findViewById(R.id.button4);
+        buttonLogin=(Button)findViewById(R.id.button);
+        buttonUpdate=(Button)findViewById(R.id.button3);
+        buttonDelete=(Button)findViewById(R.id.button4);
 
 
-        login.setOnClickListener(new View.OnClickListener() {
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                origin=1;    // origin 1 means it is called from login button
                 Bundle b=new Bundle();
-                b.putInt("origin",origin);
+                b.putInt(UserInfo.BUNDLE_ORIGIN_KEY,UserInfo.BUNDLE_ORIGIN_LOGIN);
                 Intent intent=new Intent(ctx,LoginActivity.class);
                 intent.putExtras(b);
                 startActivity(intent);
             }
         });
-//
-//        register.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                origin=2;    // origin 2 means it is called from register button
-//                Bundle b=new Bundle();
-//                b.putInt("origin",origin);
-//                Intent intent=new Intent(ctx,RegisterActivity.class);
-//                intent.putExtras(b);
-//                startActivity(intent);
-//            }
-//        });
 
-        update.setOnClickListener(new View.OnClickListener() {
+        buttonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                origin = 2;    // origin 2 means it is called from Update button
                 Bundle b = new Bundle();
-                b.putInt("origin", origin);
+                b.putInt(UserInfo.BUNDLE_ORIGIN_KEY, UserInfo.BUNDLE_ORIGIN_UPDATE);
                 Intent intent = new Intent(ctx, LoginActivity.class);
                 intent.putExtras(b);
                 startActivity(intent);
             }
         });
-        delete.setOnClickListener(new View.OnClickListener() {
+
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                origin=3;    // origin 3 means it is called from delete button
                 Bundle b=new Bundle();
-                b.putInt("origin",origin);
+                b.putInt(UserInfo.BUNDLE_ORIGIN_KEY,UserInfo.BUNDLE_ORIGIN_DELETE);
                 Intent intent=new Intent(ctx,LoginActivity.class);
                 intent.putExtras(b);
                 startActivity(intent);

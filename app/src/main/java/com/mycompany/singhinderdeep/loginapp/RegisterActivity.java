@@ -18,6 +18,7 @@ public class RegisterActivity extends Activity {
     EditText et_user_pass;
     EditText et_conf_pass;
     Button btn_Reg;
+    long status=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +37,11 @@ public class RegisterActivity extends Activity {
                 String user_name=et_user_name.getText().toString();
                 String user_pass=et_user_pass.getText().toString();
                 String conf_pass = et_conf_pass.getText().toString();
-                userInfo.userName=user_name;
-                userInfo.userPass=user_pass;
+                userInfo.setUserName(user_name);
+                userInfo.setUserPass(user_pass);
                 if(!userInfo.userPass.equals(conf_pass)){
-                    Log.d("RegisterActivity", "passwords do not match");
-                    Toast.makeText(getBaseContext(), "passwords do not match", Toast.LENGTH_LONG).show();
+                    Log.d("RegisterActivity", "Passwords do not match");
+                    Toast.makeText(getBaseContext(), "Passwords do not match\nTry Again", Toast.LENGTH_LONG).show();
                     et_user_name.setText("");
                     et_user_pass.setText("");
                     et_conf_pass.setText("");
@@ -48,9 +49,15 @@ public class RegisterActivity extends Activity {
 
                 } else {
                     DatabaseOpr dbo = new DatabaseOpr(ctx);
-                    dbo.putUserInfo(userInfo);
-                    Toast.makeText(getBaseContext(), "Registration Success", Toast.LENGTH_LONG).show();
-                    finish();
+                    status=dbo.putUserInfo(userInfo);
+                    if (status!=1){
+                        Toast.makeText(getBaseContext(), "Registration Failed \n" +
+                                "Try Again", Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        Toast.makeText(getBaseContext(), "Registration Success", Toast.LENGTH_LONG).show();
+                        finish();
+                    }
                 }
             }
         });

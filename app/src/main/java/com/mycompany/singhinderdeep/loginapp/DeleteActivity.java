@@ -17,20 +17,20 @@ public class DeleteActivity extends Activity {
     EditText et_pass;
     TextView tv;
     Button butDel;
-    String message="Hi User !";
+    String name,pass;
     Context ctx=this;
     UserInfo userInfo;
-    int status;
+    long status;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete);
-        final String name = getIntent().getExtras().getString("user_name");
-        final String pass=getIntent().getExtras().getString("user_pass");
+
+        name = getIntent().getExtras().getString(UserInfo.BUNDLE_NAME_KEY);
+        pass = getIntent().getExtras().getString(UserInfo.BUNDLE_PASS_KEY);
 
         tv=(TextView)findViewById(R.id.textView);
         et_pass=(EditText)findViewById(R.id.editText9);
-
         butDel=(Button)findViewById(R.id.button8);
 
         butDel.setOnClickListener(new View.OnClickListener() {
@@ -47,14 +47,12 @@ public class DeleteActivity extends Activity {
                     userInfo=new UserInfo();
                     userInfo.setUserName(name);
                     status=dop.deleteUserInfo(userInfo);
-                    if(status==1)
-                    {
+                    if(status==1){
                         Toast.makeText(getBaseContext(), "User Info deleted successfully", Toast.LENGTH_LONG).show();
                         finish();
                         return;
                     }
-                    else
-                    {
+                    else{
                         Toast.makeText(getBaseContext(), "Failed to update Password", Toast.LENGTH_LONG).show();
                     }
                 }
