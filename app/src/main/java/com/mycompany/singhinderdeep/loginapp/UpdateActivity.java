@@ -54,7 +54,7 @@ public class UpdateActivity extends Activity {
                             userInfo=new UserInfo();
                             userInfo.setUserName(name);
                             userInfo.setUserPass(strNewpwd);
-                            status=dop.updateUserInfo(userInfo);
+                            status=dop.updateUserPass(userInfo);
                             if(status!=0) {
                                 Toast.makeText(getBaseContext(), "Password changed successfully", Toast.LENGTH_LONG).show();
                                 finish();
