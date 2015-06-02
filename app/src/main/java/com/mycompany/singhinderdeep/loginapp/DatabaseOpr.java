@@ -105,7 +105,7 @@ public class DatabaseOpr  extends SQLiteOpenHelper {
         return status;
     }
 
-    public Cursor getUserInfo()  {
+    public Cursor getUserInfoAll()  {
         SQLiteDatabase db=this.getReadableDatabase();
         Cursor cr=null;
         String [] columns={KEY_USER_NAME, KEY_USER_PASS};
@@ -124,6 +124,33 @@ public class DatabaseOpr  extends SQLiteOpenHelper {
             Log.d(TAG_DBOPR, TAG_CONN_CLOSE);
         }
         return cr;
+    }
+
+    public String getUserInfo(String user_name)  {
+        SQLiteDatabase db=this.getReadableDatabase();
+        Cursor cr=null;
+        String user_pwd=null;
+        String [] columns={KEY_USER_NAME, KEY_USER_PASS};
+
+        try {
+
+            cr=db.query(TABLE_REG_INFO,columns,KEY_USER_NAME+"=?",new String[]{user_name},null,null,null);
+
+            if(cr!=null && cr.getCount()==1) {
+                Log.d(TAG_DBOPR, TAG_SEL_SUCCESS);
+                cr.moveToFirst();
+                user_pwd=cr.getString(1);
+            }
+            else
+                Log.d(TAG_DBOPR, TAG_SEL_FAILED);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            cr.close();
+            db.close();
+            Log.d(TAG_DBOPR, TAG_CONN_CLOSE);
+        }
+        return user_pwd;
     }
 }
 

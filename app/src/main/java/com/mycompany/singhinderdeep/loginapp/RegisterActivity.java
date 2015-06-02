@@ -20,6 +20,9 @@ public class RegisterActivity extends Activity {
     Button btn_Reg;
     long status=0;
 
+    public static final String REGISTER_TAG="Register Activity";
+    public static final String PWD_NOT_MATCH="Passwords do not match";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,12 +43,12 @@ public class RegisterActivity extends Activity {
                 userInfo.setUserName(user_name);
                 userInfo.setUserPass(user_pass);
                 if(!userInfo.userPass.equals(conf_pass)){
-                    Log.d("RegisterActivity", "Passwords do not match");
+                    Log.d(REGISTER_TAG, PWD_NOT_MATCH);
                     Toast.makeText(getBaseContext(), "Passwords do not match\nTry Again", Toast.LENGTH_LONG).show();
-                    et_user_name.setText("");
+             //       et_user_name.setText("");
                     et_user_pass.setText("");
                     et_conf_pass.setText("");
-                    et_user_name.requestFocus();
+                    et_user_pass.requestFocus();
 
                 } else {
                     DatabaseOpr dbo = new DatabaseOpr(ctx);

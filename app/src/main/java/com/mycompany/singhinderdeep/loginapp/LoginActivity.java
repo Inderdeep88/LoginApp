@@ -22,6 +22,8 @@ public class LoginActivity extends ActionBarActivity {
     Button bt_login;
     int origin;
 
+    public static final String LOGIN_TAG="Login Activity";
+
     EditText et_login_user_name, et_login_user_pass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,57 +39,30 @@ public class LoginActivity extends ActionBarActivity {
             {
                 if(origin==UserInfo.BUNDLE_ORIGIN_LOGIN)
                 {
-                    UserInfo userInfo = new UserInfo();
+
                     et_login_user_name = (EditText) findViewById(R.id.laETName);
                     et_login_user_pass = (EditText) findViewById(R.id.laETPassword);
-                    userInfo.setUserName(et_login_user_name.getText().toString());
-                    userInfo.setUserPass(et_login_user_pass.getText().toString());
-
-                    if (userInfo.getUserPass().isEmpty() || userInfo.getUserName().isEmpty())
+                    if (et_login_user_name.getText().toString().isEmpty() || et_login_user_pass.getText().toString().isEmpty())
                     {
-                        Log.d("inside", "empty");
+                        Log.d(LOGIN_TAG, "empty");
                         Toast.makeText(getBaseContext(), "Login name or password empty \nTry Again...", Toast.LENGTH_LONG).show();
                     }
                     else
                     {
+                        UserInfo userInfo = new UserInfo();
+                        userInfo.setUserName(et_login_user_name.getText().toString());
+                        userInfo.setUserPass(et_login_user_pass.getText().toString());
                         DatabaseOpr dop = new DatabaseOpr(ctx);
-                        Cursor cr = dop.getUserInfo();
-                        Log.d("Login Activity", "After getUserInfo()");
-                        int count = cr.getCount();
-                        if (count == 0)
+                        String fetchedPass = dop.getUserInfo(userInfo.getUserName());
+                        Log.d(LOGIN_TAG, "After getUserInfo()");
+                        if (userInfo.getUserPass().equals(fetchedPass))
                         {
-                            Toast.makeText(getBaseContext(), "DB is empty \nCreate new registration...", Toast.LENGTH_LONG).show();
-                            finish();
-                            return;
-                        }
-                        cr.moveToFirst();
-                        Log.d("Login Activity", cr.getString(0));
-                        Log.d("Login Activity", cr.getString(1));
-                        Log.d("Login Activity", "Check Check");
-
-                        do
-                        {
-                            Log.d("Login Activity", "inside loop");
-                            Log.d("Login Activity", cr.getString(0));
-                            Log.d("Login Activity", cr.getString(1));
-
-                            if (userInfo.userName.equals(cr.getString(0)) && userInfo.userPass.equals(cr.getString(1)))
-                            {
-                                Log.d("Login Activity", "inside if1");
-                                login_status = true;
-                                name = cr.getString(0);
-                                break;
-                            }
-                        } while (cr.moveToNext());
-                        if (login_status)
-                        {
-                            Log.d("Login Activity", "inside if2");
-                            Toast.makeText(getBaseContext(), "Login Successful \n Welcome " + name, Toast.LENGTH_LONG).show();
-                            finish();
+                            Log.d(LOGIN_TAG, "inside if");
+                            Toast.makeText(getBaseContext(), "Login Successful \n Welcome " + userInfo.getUserName(), Toast.LENGTH_LONG).show();
                         }
                         else
                         {
-                            Log.d("Login Activity", "inside else");
+                            Log.d(LOGIN_TAG, "inside else");
                             Toast.makeText(getBaseContext(), "Login Failed", Toast.LENGTH_LONG).show();
                         }
                     }

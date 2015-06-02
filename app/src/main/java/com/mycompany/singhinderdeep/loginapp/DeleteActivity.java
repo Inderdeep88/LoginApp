@@ -53,7 +53,7 @@ public class DeleteActivity extends Activity {
                         return;
                     }
                     else{
-                        Toast.makeText(getBaseContext(), "Failed to update Password", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getBaseContext(), "Failed to delete Password", Toast.LENGTH_LONG).show();
                     }
                 }
                 else{
