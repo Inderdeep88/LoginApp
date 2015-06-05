@@ -65,8 +65,8 @@ public class LoginActivity extends ActionBarActivity {
                         Log.d("Login Activity", "inside if2");
                         Intent in = new Intent(getBaseContext(),UpdateActivity.class);
                         Bundle b=new Bundle();
-                        b.putString(userInfo.BUNDLE_NAME_KEY, userInfo.getUserName());
-                        b.putString(userInfo.BUNDLE_PASS_KEY, userInfo.getUserPass());
+                        b.putString(UserInfo.BUNDLE_NAME_KEY, userInfo.getUserName());
+                        b.putString(UserInfo.BUNDLE_PASS_KEY, userInfo.getUserPass());
                         in.putExtras(b);
                         startActivity(in);
                     }
@@ -75,8 +75,8 @@ public class LoginActivity extends ActionBarActivity {
                         Log.d("Login Activity", "inside if2");
                         Intent i = new Intent(ctx,DeleteActivity.class);
                         Bundle b=new Bundle();
-                        b.putString(userInfo.BUNDLE_NAME_KEY, userInfo.getUserName());
-                        b.putString(userInfo.BUNDLE_PASS_KEY, userInfo.getUserPass());
+                        b.putString(UserInfo.BUNDLE_NAME_KEY, userInfo.getUserName());
+                        b.putString(UserInfo.BUNDLE_PASS_KEY, userInfo.getUserPass());
                         i.putExtras(b);
                         startActivity(i);
                     }
