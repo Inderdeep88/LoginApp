@@ -56,7 +56,7 @@ public class UpdateActivity extends Activity {
                             //call update db helper
                             DatabaseOpr dop = new DatabaseOpr(ctx);
                             userInfo = new UserInfo();
-                            userInfo.setUserName(name);
+                             userInfo.setUserName(name);
                             userInfo.setUserPass(strNewpwd);
                             status = dop.updateUserPass(userInfo);
                             if (status != 0) {
