@@ -3,6 +3,7 @@ package com.mycompany.singhinderdeep.loginapp;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,49 +32,48 @@ public class UpdateActivity extends Activity {
         name=getIntent().getExtras().getString(UserInfo.BUNDLE_NAME_KEY);
         pass=getIntent().getExtras().getString(UserInfo.BUNDLE_PASS_KEY);
 
+        Log.d("name :",name);
+        Log.d("pass :",pass);
+
         butUpd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String strOldpwd=oldpwd.getText().toString();
-                String strNewpwd=newpwd.getText().toString();
-                boolean flag=true;
+                String strOldpwd = oldpwd.getText().toString();
+                String strNewpwd = newpwd.getText().toString();
+                boolean flag = true;
 
-                if(!strOldpwd.equals(strNewpwd)) {
+                if (!strOldpwd.equals(strNewpwd)) {
                     if (strOldpwd.isEmpty()) {
                         Toast.makeText(getBaseContext(), "Old password is empty \nTry Again...", Toast.LENGTH_LONG).show();
-                        flag=false;
+                        flag = false;
                     }
                     if (strNewpwd.isEmpty()) {
                         Toast.makeText(getBaseContext(), "New password is empty \nTry Again...", Toast.LENGTH_LONG).show();
-                        flag=false;
+                        flag = false;
                     }
-                    if(flag){
-                        if(pass.equals(strOldpwd)){
+                    if (flag) {
+                        if (pass.equals(strOldpwd)) {
                             //call update db helper
                             DatabaseOpr dop = new DatabaseOpr(ctx);
-                            userInfo=new UserInfo();
+                            userInfo = new UserInfo();
                             userInfo.setUserName(name);
                             userInfo.setUserPass(strNewpwd);
-                            status=dop.updateUserPass(userInfo);
-                            if(status!=0) {
+                            status = dop.updateUserPass(userInfo);
+                            if (status != 0) {
                                 Toast.makeText(getBaseContext(), "Password changed successfully", Toast.LENGTH_LONG).show();
                                 finish();
                                 return;
-                            }
-                            else {
+                            } else {
                                 Toast.makeText(getBaseContext(), "Failed to update Password", Toast.LENGTH_LONG).show();
                             }
-                        }
-                        else{
+                        } else {
                             Toast.makeText(getBaseContext(), "Old password is Incorrect \nTry Again...", Toast.LENGTH_LONG).show();
                         }
 
                     }
-                }
-                else if(strNewpwd.isEmpty()) {
+                } else if (strNewpwd.isEmpty()) {
                     Toast.makeText(getBaseContext(), "New password and old password cannot be empty \nTry Again...", Toast.LENGTH_LONG).show();
-                }
-                else{
+                } else {
                     Toast.makeText(getBaseContext(), "New password and old password cannot be same \nTry Again...", Toast.LENGTH_LONG).show();
                 }
             }
